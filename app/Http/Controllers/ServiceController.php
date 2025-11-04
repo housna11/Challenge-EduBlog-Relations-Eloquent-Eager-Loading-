@@ -18,10 +18,20 @@ class ServiceController extends Controller
       return view('create');}
 
     
-   public function store(StoreServiceRequest $request){
-    $service = Service::create($request->validated());
-    return redirect()->route('services.index');
+   public function store(StoreServiceRequest $request)
+{
+    $validated = $request->validated();
+
+    if ($request->hasFile('image')) {
+        $path = $request->file('image')->store('services', 'public');
+        $validated['image'] = $path;
     }
+
+    $service = Service::create($validated);
+
+    return redirect()->route('services.index');
+}
+
 
     
     public function show(Service $service){
