@@ -2,8 +2,8 @@
 
 namespace App\Policies;
 
+use App\Models\Service;
 use App\Models\User;
-use App\Models\service;
 use Illuminate\Auth\Access\Response;
 
 class ServicePolicy
@@ -19,9 +19,9 @@ class ServicePolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, service $service): bool
+    public function view(User $user, Service $service): bool
     {
-        //
+        return true;
     }
 
     /**
@@ -29,29 +29,31 @@ class ServicePolicy
      */
     public function create(User $user): bool
     {
-        //
+        return $user->role==='admin';
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, service $service): bool
+    public function update(User $user, Service $service): bool
     {
-        //
+        return $user->role==='admin';
+
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, service $service): bool
+    public function delete(User $user, Service $service): bool
     {
-        //
+        return $user->role==='admin';
+
     }
 
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, service $service): bool
+    public function restore(User $user, Service $service): bool
     {
         //
     }
@@ -59,7 +61,7 @@ class ServicePolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, service $service): bool
+    public function forceDelete(User $user, Service $service): bool
     {
         //
     }

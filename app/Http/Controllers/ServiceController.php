@@ -32,7 +32,6 @@ class ServiceController extends Controller
     return redirect()->route('services.index');
 }
 
-
     
     public function show(Service $service){
       return view('show',['service' => $service]);
@@ -45,6 +44,8 @@ class ServiceController extends Controller
     }
 
     public function update(UpdateServiceRequest $request, Service $service){ 
+      $this->authorize('update', $service);
+      
       $service->update($request->validated());
       return redirect()->route('services.index');
     }
